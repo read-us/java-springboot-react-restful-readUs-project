@@ -1,0 +1,59 @@
+HELP.md
+.gradle
+build/
+!gradle/wrapper/gradle-wrapper.jar
+!**/src/main/**/build/
+!**/src/test/**/build/
+
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+bin/
+!**/src/main/**/bin/
+!**/src/test/**/bin/
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+out/
+!**/src/main/**/out/
+!**/src/test/**/out/
+
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+
+# 임시/IDE 환경설정/백업 파일
+*.log
+*.tmp
+*.class
+*.jar
+*.war
+
+# Eclipse/IDE 환경파일
+.settings/
+
+# OS별/IDE 캐시
+.DS_Store
+Thumbs.db
+
+# IDEA/VSCode 등 기타 IDE 폴더
+.idea/
+.vscode/
+
+### properties ###
+application.properties
+application-local.yml
+
+## React 연동 시 고려 필요 ##
+node_modules/
