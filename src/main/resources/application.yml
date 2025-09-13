@@ -1,0 +1,8 @@
+spring:
+  profiles:
+    include:
+      - local
+
+  docker:
+    compose:
+      enabled: false
