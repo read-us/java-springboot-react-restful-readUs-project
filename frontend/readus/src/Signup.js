@@ -1,7 +1,12 @@
+import { useNavigate } from "react-router-dom";
 import React, { useState } from "react";
 import axios from "axios";
 
+
 export default function Signup() {
+	
+  const navigate = useNavigate();
+	
   const [form, setForm] = useState({
     email: "",
     username: "",
@@ -12,14 +17,54 @@ export default function Signup() {
     hp: "",
   });
 
+  //에러,성공 메세지 초기화
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
+  //비밀번호 확인 상태 메시지 초기화
+  const [passwordCheckMessage, setPasswordCheckMessage] = useState("");
 
   const handleChange = (e) => {
+	const { name, value } = e.target;
     setForm({
       ...form,
       [e.target.name]: e.target.value,
     });
+	
+	// password 와 password_check 동적 체크
+	if (name === "password" || name === "password_check") {
+	  if (name === "password_check") { //비밀번호 확인 칸에서 수정 이벤트가 발생 할 경우
+	    if (value === form.password) {
+	      setPasswordCheckMessage(
+	        <span style={{ color: "green", marginLeft: 10 }}>
+	          비밀번호가 확인되었습니다.
+	        </span>
+	      );
+	    } else {
+	      setPasswordCheckMessage(
+	        <span style={{ color: "red", marginLeft: 10 }}>
+	          비밀번호를 다시 확인하세요.
+	        </span>
+	      );
+	    }
+	  } else if (name === "password") { //비밀번호 칸에서 수정 이벤트가 발생 할 경우
+	    // 사용자가 password를 바꾸면 password_check와 비교
+	    if (form.password_check) {
+	      if (form.password_check === value) {
+	        setPasswordCheckMessage(
+	          <span style={{ color: "green", marginLeft: 10 }}>
+	            비밀번호가 확인되었습니다.
+	          </span>
+	        );
+	      } else {
+	        setPasswordCheckMessage(
+	          <span style={{ color: "red", marginLeft: 10 }}>
+	            비밀번호를 다시 확인하세요.
+	          </span>
+	        );
+	      }
+	    }
+	  }
+	}
   };
 
   const handleSubmit = async (e) => {
@@ -63,6 +108,12 @@ export default function Signup() {
 
   return (
     <div style={{ maxWidth: 400, margin: "0 auto", padding: 20 }}>
+	<button
+	  onClick={() => navigate("/")}
+	  style={{ position: "absolute", top: 10, right: 10 }}
+	>
+	  로그인
+	</button>
       <h2>회원가입</h2>
       <form onSubmit={handleSubmit}>
         <label>
@@ -121,6 +172,10 @@ export default function Signup() {
             required
           />
         </label>
+		<br />
+		{passwordCheckMessage && (
+		  <span id="passwordCheckMsg">{passwordCheckMessage}</span>
+		)}
         <br />
         <label>
           생년월일:
